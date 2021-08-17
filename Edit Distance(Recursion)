@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+#define ll long long 
+using namespace std;
+int min(int a,int b,int c)
+{
+  return min(a,min(b,c));
+}
+int EditDistance(string a,int n,string b,int m)
+{
+  if(n==0)
+  return m;
+  if(m==0)
+  return n;
+  if(a[n-1]==b[m-1])
+  return EditDistance(a,n-1,b,m-1);
+  return 1+min(EditDistance(a,n-1,b,m),EditDistance(a,n,b,m-1),EditDistance(a,n-1,b,m-1));
+}
+int main()
+{
+  string a,b;
+  cin>>a>>b;
+  int n=a.size(),m=b.size();
+  cout<<EditDistance(a,n,b,m)<<endl;
+}
+time complexity:O(3^m)
