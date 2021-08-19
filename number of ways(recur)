@@ -14,4 +14,4 @@ int main()
   cin>>n;
   cout<<solve(n)<<endl;  
 }
-time complexity:O(n*n)
+time complexity:O(3^n)
