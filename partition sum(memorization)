@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[1001][1001];
+int solve(vector<int>v,int i,int sum_now,int sum)
+{
+  if(dp[i][sum_now]!=-1)
+  return dp[i][sum_now];
+  if(i==0)
+  return dp[i][sum_now]=abs((sum-sum_now)-sum_now);
+  return dp[i][sum_now]=min(solve(v,i-1,sum_now+v[i],sum),solve(v,i-1,sum_now,sum));
+}
+int main()
+{
+  int n;
+  cin>>n;
+  vector<int>v;
+  int a,sum=0;
+  for(int i=0;i<n;i++)
+  {
+    cin>>a;
+    v.push_back(a);
+    sum+=a;
+  }
+  memset(dp,-1,sizeof(dp));
+  cout<<solve(v,n-1,0,sum);
+}
