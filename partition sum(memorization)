@@ -24,3 +24,5 @@ int main()
   memset(dp,-1,sizeof(dp));
   cout<<solve(v,n-1,0,sum);
 }
+time complexity:O(n*sum)
+space complexity:O(n*sum)
