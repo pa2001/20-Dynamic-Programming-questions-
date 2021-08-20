@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[301][301];
+bool valid(vector<vector<int>>& matrix, int i,int j,int oi, int oj){
+   if(i<0 or j<0 or i>=matrix.size() or j>=matrix[0].size()){
+       return false;
+   } 
+   if(matrix[i][j] <= matrix[oi][oj]){
+       return false;
+   } 
+    return true;
+}
+int dfs(vector<vector<int>>& matrix, int i,int j){
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    int ans = 0;
+    if(valid(matrix, i+1, j,i,j)){
+        ans = max(ans, dfs(matrix, i+1, j));
+    }
+    if(valid(matrix, i-1, j,i,j)){
+        ans = max(ans, dfs(matrix, i-1, j));
+    }
+    if(valid(matrix, i, j+1,i,j)){
+        ans = max(ans, dfs(matrix, i, j+1));
+    }
+    if(valid(matrix, i, j-1,i,j)){
+        ans = max(ans, dfs(matrix, i, j-1));
+    }
+    return dp[i][j] = ans+1;
+}
+int longestIncreasingPath(vector<vector<int>>& matrix) {
+    if(matrix.size() == 0){
+        return 0;
+    }
+    memset(dp,-1,sizeof(dp));
+    int ans = 0;
+    for(int i=0;i<matrix.size();i++){
+        for(int j=0;j<matrix[0].size();j++){
+             ans = max(ans, dfs(matrix,i,j));
+        }
+    }
+    return ans;
+    }
+int main()
+{
+  int n,m,a;
+  cin>>n>>m;
+  vector<vector<int>>v(n);
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<m;j++)
+    {
+      cin>>a;
+      v[i].push_back(a);
+    }
+  }
+  cout<<longestIncreasingPath(v)<<endl;
+}
