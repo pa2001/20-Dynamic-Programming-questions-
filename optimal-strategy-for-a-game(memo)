@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[1001][1001];
+int solve(int i,int j,vector<int>v)
+{
+  if(dp[i][j]!=-1)
+  return dp[i][j];
+  if(i==j)
+  return dp[i][j]=v[i];
+  if(j==i+1)
+  return dp[i][j]=max(v[i],v[j]);
+  return dp[i][j]=max(v[i]+min(solve(i+2,j,v),solve(i+1,j-1,v)),v[j]+min(solve(i+1,j-1,v),solve(i,j-2,v)));
+}
+int main()
+{
+  int n;
+  cin>>n;
+  int a;
+  vector<int>v;
+  for(int i=0;i<n;i++)
+  {
+    cin>>a;
+    v.push_back(a);
+  }
+  memset(dp,-1,sizeof(dp));
+  cout<<solve(0,n-1,v)<<endl;
+}
+time complexity:O(n^2)
+space complexity:O(n^2)
